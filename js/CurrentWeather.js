@@ -72,29 +72,24 @@ function getWeather(currentSelectedCity) {
 $('.dropdown-value').on('click', async e => {
     const currentSelectedCity = e.target.text;
     setDropdownTitle(currentSelectedCity);
-    if ($(e.target).hasClass('disabled')) {
-        e.preventDefault();
-    } else {
-        await updateWeatherInfo(currentSelectedCity);
-    }
+    await updateWeatherInfo(currentSelectedCity);
 });
 
 // Validate the object that we recieved
 const validateResultObj = jsonObj => jsonObj.hasOwnProperty('currently') &&
         jsonObj.hasOwnProperty('daily') &&
-        jsonObj["daily"].hasOwnProperty('data') &&
-        jsonObj["daily"]["data"].length > 0;
+        jsonObj['daily'].hasOwnProperty('data') &&
+        jsonObj['daily']['data'].length > 0;
 
 // Update the page with the weather info we want
 async function updateWeatherInfo(currentSelectedCity) {
+    $('#retrieval-error').hide();
     if (cachedWeather.hasOwnProperty(currentSelectedCity) 
     && userCheckedWithinFiveMinutes(currentSelectedCity)) {
         updateWeatherInfoFromCache(currentSelectedCity);
-        $('#retrieval-error').hide();
         return;
     }
     showLoader();
-    $('#retrieval-error').hide();
     const result = await getWeather(currentSelectedCity);
     if (validateResultObj(result)) {
         setWeather(result['currently'], result['daily']['data'][0], currentSelectedCity);
