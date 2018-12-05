@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+        <title>Weather</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/erikflowers/weather-icons/css/weather-icons.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="css/main.css">
+    </head>
+    <body>
+        <nav>
+            <div class="nav-wrapper">
+                <a class="brand-logo">Weather</a>
+            </div>
+        </nav>
+        <div class="container">
+            <div class="row">
+                <div id="root" class="col s12 m6 l6 center-text">
+                    <a class='dropdown-trigger btn' href='#' id="dropdown-title" data-target='city-dropdown'><span id="dropdown-span">Select a City</a>
+                    <ul id='city-dropdown' class='dropdown-content'>
+                        <li><a class="dropdown-value">Los Angeles</a></li>
+                        <li><a class="dropdown-value">San Francisco</a></li>
+                    </ul>
+                    <div id="spinner" class="loader" hidden></div>
+                    <div id="retrieval-error" class="card-panel red lighten-2" hidden>Unable to retrieve weather for <span id="error-city-name"></span> at this time. Please try again.</div>
+                </div>
+                <div id="weather-info" class="col s12 m6 l6 center-text" hidden>
+                    <h5 id="current-city-name"></h5>
+                    <h6 id="current-city-day"></h6>
+                    <div class="row">
+                        <div class="col s12 m6 l6">
+                            <h5 id="today-current-header">Currently</h5>
+                            <i id="current-icon"></i>
+                            <br/>
+                            <h5 id="temperature-span"></h5>
+                        </div>
+                        <div class="col s12 m6 l6">
+                            <div>
+                                <h5 id="today-forecast-header">Forecast</h5>
+                                <div class="high-low-container">
+                                    <span id="today-high" class="high-lows high"></span>°
+                                    <span id="high-low-seperator">/</span>
+                                    <br />
+                                    <span id="today-low" class="high-lows low"></span>°
+                                </div>
+                                <h6 id="today-description" class="daily-description"></h6>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="forecast-container" class="row" hidden>
+                <h4 class="center-text">Weekly Forecast</h4>
+                <div id="upcoming-weather">
+                    <!-- Will be populated with handlebars template -->
+                </div>
+            </div>
+        </div>
+        
+        <script id="forcast-template" type="text/x-handlebars-template">
+            {{#each this}}
+            <div class="daily-weather col s12 m6 l2">
+                <h6 id="daily-date-{{id}}" class="daily-date"></h6>
+                <div class="icon-container">
+                    <!-- Using the style tag here because we are modifying the class in the JS -->
+                    <i id="daily-icon-{{id}}" style="font-size: 3em"></i>
+                </div>
+                <div class="high-low-container">
+                    <span id="high-{{id}}" class="high"></span>°
+                    <span id="high-low-seperator">/</span>
+                    <span id="low-{{id}}" class="low"></span>°
+                </div>
+                <h6 id="daily-description-{{id}}" class="daily-description"></h6>
+            </div>
+            {{/each}}
+        </script>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <script src="js/City.js"></script>
+        <script src="js/CurrentWeather.js"></script>
+        <script src="js/WeatherForecast.js"></script>
+        <script src="js/index.js"></script>
+    </body>
+</html>

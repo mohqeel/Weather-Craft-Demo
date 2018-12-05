@@ -1,0 +1,48 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Mocha Tests</title>
+  <link href="https://unpkg.com/mocha@5.2.0/mocha.css" rel="stylesheet" />
+</head>
+<body>
+  <div id="mocha"></div>
+
+
+  <script id="forcast-template" type="text/x-handlebars-template">
+        {{#each this}}
+        <div class="daily-weather col s12 m6 l2">
+            <h6 id="daily-date-{{id}}" class="daily-date"></h6>
+            <div class="icon-container">
+                <!-- Using the style tag here because we are modifying the class in the JS -->
+                <i id="daily-icon-{{id}}" style="font-size: 3em"></i>
+            </div>
+            <div class="high-low-container">
+                <span id="high-{{id}}" class="high"></span>°
+                <span id="high-low-seperator">/</span>
+                <span id="low-{{id}}" class="low"></span>°
+            </div>
+            <h6 id="daily-description-{{id}}" class="daily-description"></h6>
+        </div>
+        {{/each}}
+    </script>
+  <script src="https://unpkg.com/chai/chai.js"></script>
+  <script src="https://unpkg.com/mocha@5.2.0/mocha.js"></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script src="js/City.js"></script>
+  <script src="js/CurrentWeather.js"></script>
+  <script src="js/WeatherForecast.js"></script>
+  <script src="js/index.js"></script>
+  <script>mocha.setup('bdd')</script>
+  <script src="tests/City.test.js"></script>
+  <script src="tests/CurrentWeather.test.js"></script>
+  <script src="tests/WeatherForecast.test.js"></script>
+  <script src="tests/index.test.js"></script>
+  <script>
+    mocha.checkLeaks();
+    mocha.run();
+  </script>
+</body>
+</html>
